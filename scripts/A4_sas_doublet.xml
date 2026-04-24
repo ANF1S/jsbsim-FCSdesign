@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="http://jsbsim.sf.net/JSBSimScript.xsl"?>
+<runscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://jsbsim.sf.net/JSBSimScript.xsd"
+    name="pitch SAS with elevator doublet test setup.">
+ 
+  <use aircraft="A4" initialize="reset01"/>
+
+  <output name="localhost" type="FLIGHTGEAR" port="5501" protocol="UDP" rate="30"/>
+  
+  <output name="localhost" type="SOCKET" port="5502" protocol="UDP" rate="20">
+    <property> position/h-sl-meters </property>
+    <property> velocities/vt-fps </property>
+  </output>
+
+  <run start="0.0" end="25" dt="0.00833333">
+
+    <event name="Start engine">
+      <condition>
+        simulation/sim-time-sec  ge  0.0
+      </condition>
+      <set name="propulsion/starter_cmd" value="1"/>
+      <set name="propulsion/engine[0]/set-running" value="1"/>
+      <set name="propulsion/fuel_freeze" value="0"/>   <!-- 1: ideal full tank -->
+      <set name="fcs/throttle-cmd-norm" value = "0.5"/>
+      <notify/>
+    </event>
+    
+    <event name="Trim and linearize">
+      <condition>simulation/sim-time-sec  gt 0.01 </condition>
+      <set name="simulation/do_simple_trim" value="1"/>
+      <set name="simulation/do_linearization" value="1"/>
+      <notify>
+        <property>velocities/vc-kts</property>
+        <property>attitude/theta-rad</property>
+        <property>aero/alpha-rad</property>
+        <property>velocities/q-rad_sec</property>
+        <property>aero/beta-rad</property>
+        <property>attitude/phi-rad</property>
+        <property>velocities/p-rad_sec</property>
+        <property>attitude/psi-rad</property>
+        <property>velocities/r-rad_sec</property>
+        <property>position/lat-gc-rad</property>
+        <property>position/long-gc-rad</property>
+        <property>position/h-agl-ft</property>
+
+        <property>fcs/elevator-pos-rad</property> 
+        <property>fcs/elevator-cmd-norm</property> 
+        <property>fcs/pitch-trim-cmd-norm</property> 
+        <property>fcs/throttle-cmd-norm</property> 
+        <property>fcs/rudder-pos-rad</property> 
+        <property>fcs/aileron-cmd-norm</property> 
+      </notify>
+    </event>
+    
+    <event name="Set pitch SAS">
+      <condition>simulation/sim-time-sec  ge  2.0</condition>
+      <set name="fcs/sas-active-switch" value="0"/>
+      <notify/>
+    </event> 
+
+    <event name="doublet init - pull">
+      <condition> simulation/sim-time-sec  ge  3.0 </condition>
+      <set name="fcs/elevator-cmd-norm" value="-0.286"/> <!-- normalized value -->
+    </event>
+    
+    <event name="doublet init - push">
+      <condition> simulation/sim-time-sec  ge  3.5 </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.333"/>
+    </event>
+
+    <event name="return neutral">
+      <condition>simulation/sim-time-sec  ge  4.0 </condition>
+      <set name="fcs/elevator-cmd-norm" value="0.0"/>
+    </event>
+
+  </run>
+</runscript>
