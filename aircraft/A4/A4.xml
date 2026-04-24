@@ -194,7 +194,7 @@
   </tank>
 
  </propulsion>
- <system file = "sas_pitch"/>
+ <system file = "sas_pitch"/> <!-- add pitch sas file -->
  <flight_control name="FCS: A-4">
 
   <channel name="Pitch">
