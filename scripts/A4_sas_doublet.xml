@@ -6,13 +6,6 @@
  
   <use aircraft="A4" initialize="reset01"/>
 
-  <output name="localhost" type="FLIGHTGEAR" port="5501" protocol="UDP" rate="30"/>
-  
-  <output name="localhost" type="SOCKET" port="5502" protocol="UDP" rate="20">
-    <property> position/h-sl-meters </property>
-    <property> velocities/vt-fps </property>
-  </output>
-
   <run start="0.0" end="25" dt="0.00833333">
 
     <event name="Start engine">
