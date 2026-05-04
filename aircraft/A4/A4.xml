@@ -225,8 +225,8 @@
       <input> fcs/sum-control-law </input>
       <lag> 10 </lag>  <!-- This represents 1/(0.1s + 1) -->
   	<clipto>
-   	  <min> -0.34 </min> <!-- 19.48 Degrees -->
-   	  <max>  0.34 </max>
+   	  <min> -0.35 </min> <!-- 20.05 Degrees -->
+   	  <max>  0.30 </max>
   	</clipto>
       <output>fcs/elevator-pos-rad</output>
    </actuator>
