@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!-- CSV file with variables to plot -->
+<output name="JSBoutA4.csv" type="CSV" rate="30">
+
+    <property> aero/alpha-rad </property>
+    <property> attitude/theta-rad </property>
+    <property> velocities/q-rad_sec </property>
+    <property> position/h-sl-meters </property>
+    <property> position/lat-geod-rad </property> <!-- geodetic latitude for spheroid earth -->
+    <property> position/long-gc-rad </property>    
+    <property> fcs/elevator-pos-deg </property>
+    <property> velocities/vt-fps </property>     <!-- True Airspeed TAS -->
+
+    <property>fcs/sum-control-law-deg</property>
+    <property>attitude/psi-rad</property>
+    <property>attitude/phi-rad</property>
+
+</output>
